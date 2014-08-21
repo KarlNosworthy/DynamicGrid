@@ -3,6 +3,7 @@ package org.askerov.dynamicgrid;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: alex askerov
@@ -17,7 +18,7 @@ public class DynamicGridUtils {
      * @param indexFrom
      * @param indexTwo
      */
-    public static void reorder(ArrayList list, int indexFrom, int indexTwo) {
+    public static void reorder(List list, int indexFrom, int indexTwo) {
         Object obj = list.remove(indexFrom);
         list.add(indexTwo, obj);
     }
@@ -29,7 +30,7 @@ public class DynamicGridUtils {
      * @param firstIndex The position of the first item in the list.
      * @param secondIndex The position of the second item in the list.
      */
-    public static void swap(ArrayList list, int firstIndex, int secondIndex) {
+    public static void swap(List list, int firstIndex, int secondIndex) {
         Object firstObject = list.get(firstIndex);
         Object secondObject = list.get(secondIndex);
         list.set(firstIndex, secondObject);

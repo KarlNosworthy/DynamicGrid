@@ -10,25 +10,18 @@ import java.util.List;
  * Date: 9/6/13
  * Time: 7:43 PM
  */
-public abstract class AbstractDynamicGridAdapter extends BaseAdapter {
+
+
+/**
+ * Abstract adapter for {@link org.askerov.dynamicgrid.DynamicGridView} with sable items id;
+ */
+
+public abstract class AbstractDynamicGridAdapter extends BaseAdapter implements DynamicGridAdapterInterface {
     public static final int INVALID_ID = -1;
 
+    private int nextStableId = 0;
 
     private HashMap<Object, Integer> mIdMap = new HashMap<Object, Integer>();
-
-    /**
-     * @return return columns number for GridView. Need for compatibility
-     * (@link android.widget.GridView#getNumColumns() requires api 11)
-     */
-    public abstract int getColumnCount();
-
-    /**
-     * Determines how to reorder items dragged from <code>originalPosition</code> to <code>newPosition</code>
-     *
-     * @param originalPosition
-     * @param newPosition
-     */
-    public abstract void reorderItems(int originalPosition, int newPosition);
 
     /**
      * Adapter must have stable id
@@ -46,9 +39,7 @@ public abstract class AbstractDynamicGridAdapter extends BaseAdapter {
      * @param item
      */
     protected void addStableId(Object item) {
-        int newId = (int) getItemId(getCount() - 1);
-        newId++;
-        mIdMap.put(item, newId);
+        mIdMap.put(item, nextStableId++);
     }
 
     /**
@@ -57,10 +48,8 @@ public abstract class AbstractDynamicGridAdapter extends BaseAdapter {
      * @param items
      */
     protected void addAllStableId(List<?> items) {
-        int startId = (int) getItemId(getCount() - 1);
-        startId++;
-        for (int i = startId; i < items.size(); i++) {
-            mIdMap.put(items.get(i), i);
+        for (Object item : items) {
+            addStableId(item);
         }
     }
 
